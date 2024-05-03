@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .user-section {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start; /* Align items to the start */
+            width: 100%;
+        }
+        .user-image img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+        }
+        .user-details {
+            text-align: left;
+            margin-left: 20px;
+        }
+        h2 {
+            color: #333;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .profile-info {
+            text-align: left; /* Align text to the left */
+            margin-bottom: 20px;
+        }
+        .profile-info p {
+            margin: 0;
+        }
+        .product-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .product-card {
+            width: 250px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin: 10px;
+            padding: 15px;
+            text-align: center;
+        }
+        .product-card img {
+            max-width: 100%;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .product-title {
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+        .product-price {
+            color: #888;
+            margin-bottom: 10px;
+        }
+        .product-description {
+            font-size: 0.9em;
+            color: #666;
+        }
+        .product-card {
+            width: 250px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin: 10px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card:hover .hover-card {
+            top: 0;
+        }
+
+        .hover-card {
+            position: absolute;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: top 0.3s ease-in-out;
+        }
+        .hover-card a {
+            color: #fff;
+            text-decoration: none;
+            background-color: rgb(65, 65, 65);
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .hover-card a:hover {
+            background-color: rgb(124, 124, 124);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="user-section">
+            {% for x in user %}
+            <div class="user-image">
+                <img src="{{ x.image.url }}" alt="User Avatar">
+            </div>
+            <div class="user-details">
+                <div class="profile-info">
+                    <h1>{{ x.name }}</h1>
+
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <h2>Uploaded Books</h2>
+        <div class="product-list">
+            {% for x in books %}
+            <div class="product-card">
+                <img src="{{ x.image.url }}" style="height: 180px; width: 150px;">
+                <a href="details/{{ x.id }}" class="product-title" style="text-decoration: none;">{{ x.title }}</a>
+                <div class="hover-card">
+                    <a href="details/{{ x.id }}" style="color: #fff; margin-bottom: 10px;">View</a>
+                    <a href="delete/{{x.id}}" style="color: #fff; margin-bottom: 10px;">Delete</a>
+                    <a href="edit/{{x.id}}" style="color: #fff;">Edit</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</body>
+</html>
